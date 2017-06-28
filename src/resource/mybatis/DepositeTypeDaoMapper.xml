@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="com.unicompay.jf.model.DepositeType">
+	<resultMap type="com.unicompay.jf.model.DepositeType" id="depositeType">  
+        <result property="id" column="id"/>  
+        <result property="name" column="name" />  
+        <result property="extra" column="extra" />  
+    </resultMap>  
+    <select id="depositeTypeFindAll" resultMap="depositeType">  
+        select DEPOSITE_MODE_CODE as id,DEPOSITE_MODE_NAME as name from BDW_DIM.DIM_DEPOSITE_MODE order by DEPOSITE_MODE_CODE
+    </select>  
+    <select id="depositeTypeSearch" parameterType="java.util.Map"  resultMap="depositeType">  
+        select DEPOSITE_MODE_CODE as id,DEPOSITE_MODE_NAME as name from BDW_DIM.DIM_DEPOSITE_MODE where (DEPOSITE_MODE_CODE like '%'||#{find}||'%' or DEPOSITE_MODE_NAME like '%'||#{find}||'%') order by id
+    </select>  
+
+</mapper>

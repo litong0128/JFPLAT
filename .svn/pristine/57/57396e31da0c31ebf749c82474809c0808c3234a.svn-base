@@ -1,0 +1,62 @@
+##################################################   sso config #########################################
+#1\u3001SSO\u5e94\u7528\u7684\u5185\u7f51\u8bbf\u95ee\u5730\u5740
+#IDPIAddress=http://192.168.8.61:9080/nauth
+#2\u3001SSO\u5e94\u7528\u7684\u5916\u7f51\u8bbf\u95ee\u5730\u5740
+#IDPOAddress=http://192.168.8.61:9080/nauth
+#6\u3001SP\u7f16\u53f7\uff0c\u7531SSO\u63d0\u4f9b
+#SpID=402888bd48643f690149c247e9ea0002
+
+#1\u3001SSO\u5e94\u7528\u7684\u5185\u7f51\u8bbf\u95ee\u5730\u5740
+IDPIAddress=http://192.168.120.8:8080/auth
+#2\u3001SSO\u5e94\u7528\u7684\u5916\u7f51\u8bbf\u95ee\u5730\u5740
+#IDPOAddress=http://192.168.120.8:8080/auth
+IDPOAddress=https://ntadmin.unicompayment.com/auth
+SpID=4028f3854b6abfad014c111608e30001
+##################################################   sp config #########################################
+#SP\u81ea\u5df1\u7684\u8bbf\u95ee\u5730\u5740
+#LocalWebAddress=http://127.0.0.1:8080/JFPLAT
+#LocalWebAddress=http://192.168.31.55:8080/JFPLAT
+LocalWebAddress=https://ntadmin.unicompayment.com/JFPLAT
+
+#\u56de\u8c03\u5730\u5740\uff0c\u5fc5\u987b\u662f\u76f8\u5bf9\u8def\u5f84
+callbackurl=/servlet/isLogined
+
+#sp \u9519\u8bef\u9875\u9762URL
+#errorPageUrl=http://127.0.0.1:8080/JFPLAT/login/errorPage.jsp
+errorPageUrl=https://ntadmin.unicompayment.com/JFPLAT/login/errorPage.jsp
+
+
+#\u767b\u9646\u9875\u9762\uff0c\u53ea\u6709 nl \u4e3a 1 \u7684\u65f6\u5019\u6709\u7528,\u4e3a\u76f8\u5bf9\u8def\u5f84
+loginUrl=/servlet/isLogined
+
+
+#\u9700\u8981\u8fc7\u6ee4\u7684URL
+needCheckUrl=/*.jsp:C;/*.action:C;
+
+#\u767b\u5f55\u9875\u9762\u5b9e\u73b0\u65b9\u5f0f\uff1a1,SP\u81ea\u5b9a\u4e49\u767b\u5f55\u9875\u9762\uff0c2\u30013\u3001SSO\u63d0\u4f9b\u7edf\u4e00\u767b\u5f55\u9875\u9762
+nl=1
+
+#SP\u62a5\u6d3b\u95f4\u9694\u65f6\u95f4\uff0c\u5355\u4f4d\u4e3a\uff08\u5206\uff09
+ActiveTime=1
+
+#session \u5e38\u91cf\u914d\u7f6e
+sp_user_session_flag=sso_userinfo;
+
+#SSO \u7684 jsessionid \u540d\u79f0\uff0c\u9ed8\u8ba4\u662f jsessionid\uff0c\u7528\u9014\u3010POST \u67e5\u8be2(\u6839\u636e\u9700\u6c42)\uff0c\u62a5\u6d3b(\u5fc5\u7528)\u3011
+sso_jsessionid=jsessionid
+
+##################################################   init config #########################################
+#\u8d44\u6e90\u9650\u5236\u7c7b
+AuthCheck=com.sinovatech.sso2.client.AuthCheckImpl
+#\u9000\u51fa\u7684\u4e1a\u52a1\u5b9e\u73b0\u7c7b\uff0c\u5982\u679c\u6ca1\u6709\uff0c\u5185\u5bb9\u4e3a\u7a7a\u5373\u53ef
+logOutBusiness=com.sinovatech.sso2.client.LogoutBusinessImp
+#httpClent \u5b9e\u73b0\u7c7b
+httpClent=com.sinovatech.sso2.client.HttpClientSupportImp
+#\u66f4\u65b0\u7684\u4e1a\u52a1\u5b9e\u73b0\u7c7b\uff0c\u5982\u679c\u6ca1\u6709\uff0c\u5185\u5bb9\u4e3a\u7a7a\u5373\u53ef
+updateBusiness=com.sinovatech.sso2.client.UpdateBusinessImp
+#\u8fc7\u6ee4\u65ad\u8a00\u8bf7\u6c42servlet\u65f6Xss\u653b\u51fb\u95ee\u9898\uff0c\u5982\u679c\u6709\u81ea\u5df1\u7684\u6846\u67b6\u5904\u7406\u53ef\u4ee5\u6ce8\u91ca\u6389\u8be5\u884c
+xssValid=com.sinovatech.sso2.client.XssValidImpl
+#\u5411POST\u67e5\u8be2\u4f7f\u7528\u7684\u63d0\u4ea4\u65b9\u5f0f
+postMethod=post
+#\u5b89\u5168\u8fc7\u6ee4\u7684\u5173\u952e\u5b57
+must=[,],(,),{,},<,>,\\,*,\",',insert,update,delete,truncate,drop,alter,javascript,script

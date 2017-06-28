@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <mappers>
+        <mapper resource="resource/mybatis/BankDaoMapper.xml"/>
+        <mapper resource="resource/mybatis/BusiScenarioDaoMapper.xml"/>
+        <mapper resource="resource/mybatis/FinaChannelDaoMapper.xml"/>
+        <mapper resource="resource/mybatis/PayToolDaoMapper.xml"/>
+        
+        
+        <mapper resource="resource/mybatis/UserSourceDaoMapper.xml"/>
+        <mapper resource="resource/mybatis/CityDaoMapper.xml"/>
+        <mapper resource="resource/mybatis/ProvinceDaoMapper.xml"/>
+        <!--add by litong  -->
+        <mapper resource="resource/mybatis/InstallmentDaoMapper.xml"/>
+        <mapper resource="resource/mybatis/ChannelDaoMapper.xml"/>
+        
+        <mapper resource="resource/mybatis/AccountTypeDaoMapper.xml"/>
+        <mapper resource="resource/mybatis/RechargeTypeDaoMapper.xml"/>
+        
+        <mapper resource="resource/mybatis/MerchantDaoMapper.xml"/>
+        <mapper resource="resource/mybatis/TradeDaoMapper.xml"/>
+        <mapper resource="resource/mybatis/DepositeTypeDaoMapper.xml"/>
+        <mapper resource="resource/mybatis/CardTypeDaoMapper.xml"/>
+        <mapper resource="resource/mybatis/TradeStateDaoMapper.xml"/>
+        <mapper resource="resource/mybatis/TradeStateDaoMapper.xml"/>
+        <mapper resource="resource/mybatis/MerBusiTypeDaoMapper.xml"/>
+    </mappers>
+</configuration>

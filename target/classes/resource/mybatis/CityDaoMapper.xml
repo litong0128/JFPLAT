@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="com.unicompay.jf.model.City">
+	<resultMap type="com.unicompay.jf.model.City" id="city">  
+        <result property="id" column="id" />  
+        <result property="name" column="name" />  
+        <result property="extra" column="extra" />  
+    </resultMap>  
+    <select id="cityFindAll" parameterType="List" resultMap="city">  
+        select distinct a.city_name as id , a.city_name as name from bdw_dim.dim_phone_section a where a.prov_name in 
+        <foreach collection="list" item="titem" index="index"
+            open="(" close=")" separator=",">
+            #{titem}
+        </foreach>
+        order by id
+    </select>  
+    <select id="citySearch" parameterType="Map"  resultMap="city">  
+        select distinct a.city_name as id , a.city_name as name from bdw_dim.dim_phone_section a where a.prov_name in 
+        <foreach collection="provName" item="titem" index="index"
+            open="(" close=")" separator=",">
+            #{titem}
+        </foreach>
+        and a.city_name like '%'||#{cityName}||'%' 
+        order by id
+    </select>  
+
+	<!--新的地市查询控件  -->
+	<select id="cityNFindAll" parameterType="List" resultMap="city">  
+        select distinct a.CITY_CODE as id , a.city_name as name from bdw_dim.dim_prov_city a where a.PROV_CODE in 
+        <foreach collection="list" item="titem" index="index"
+            open="(" close=")" separator=",">
+            #{titem}
+        </foreach>
+        order by id
+    </select>  
+    <select id="cityNSearch" parameterType="Map"  resultMap="city">  
+        select distinct a.CITY_CODE as id , a.city_name as name from bdw_dim.dim_prov_city a where a.PROV_CODE in 
+        <foreach collection="provName" item="titem" index="index"
+            open="(" close=")" separator=",">
+            #{titem}
+        </foreach>
+        and (a.CITY_CODE like '%'||#{cityName}||'%' or a.city_name like '%'||#{cityName}||'%')
+        order by id
+    </select>  
+
+
+</mapper>

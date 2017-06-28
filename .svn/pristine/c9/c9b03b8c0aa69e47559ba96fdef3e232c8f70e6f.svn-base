@@ -1,0 +1,216 @@
+<%@ page language="java" import="java.util.*, java.text.SimpleDateFormat" pageEncoding="UTF-8"%>  
+<%@ taglib prefix="s"  uri="/struts-tags"%>  
+<%  
+String path = request.getContextPath();  
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/"; 
+
+String today=new SimpleDateFormat("yyyyMMdd").format(Calendar.getInstance().getTime()); 
+String month=new SimpleDateFormat("yyyyMM").format(Calendar.getInstance().getTime()); 
+String reportTitle = "控件测试"; 
+%>  
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">  
+<html>  
+  <head>  
+    <base href="<%=basePath%>">  
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- jquery ui css -->
+	<link rel="stylesheet" type="text/css" href="<%=path%>/js/jquery-ui-1.11.2/jquery-ui.min.css">
+	<link rel="stylesheet" type="text/css" href="<%=path%>/js/jquery-ui-1.11.2/jquery-ui.structure.min.css">
+	<link rel="stylesheet" type="text/css" href="<%=path%>/js/jquery-ui-1.11.2/jquery-ui.theme.min.css">
+	<link rel="stylesheet" type="text/css" href="<%=path%>/js/iCheck-1.x/skins/all.css">
+	<link type="text/css" href="<%=path%>/css/style_common.css" rel="stylesheet"/>
+	
+	<!-- jquery and ui js -->
+	<script src="<%=path%>/js/jquery/jquery.js"></script>
+	<script src="<%=path%>/js/jquery-ui-1.11.2/jquery-ui.min.js"></script>
+	<script src="<%=path%>/js/iCheck-1.x/icheck.js"></script>
+	<script src="<%=path%>/js/widget_icheck.js"></script>
+	<script src="<%=path%>/js/widget_select.js"></script>
+	<script src="<%=path%>/js/widget_datepicker.js"></script>
+    <title>控件展示</title>
+    
+  </head>  
+    
+  
+<script language="javascript">
+$(function() {
+	//---------------滑出选择框控件---------------------------------
+
+	//渠道
+	var outObj = $("#channel");
+	var pre = "channel";
+	var text = "渠道来源&nbsp;";
+	var mUrl = "${pageContext.request.contextPath}/getData_channelData.action?proflag=004"; //获取数据的url
+	popBoxHtml(outObj, pre, text);
+	popBoxAction(pre, mUrl);
+	//省份
+	var outObj = $("#province");
+	var pre = "province";
+	var text = "省份&nbsp;";
+	var mUrl = "${pageContext.request.contextPath}/getData_provinceDataN.action"; //获取数据的url
+	popBoxHtml(outObj, pre, text);
+	popBoxAction(pre, mUrl);
+	//地市
+	var outObj = $("#city");
+	var pre = "city";
+	var text = "地市&nbsp;";
+	var mUrl = "${pageContext.request.contextPath}/getData_cityDataN.action"; //获取数据的url
+	popBoxHtml(outObj, pre, text);
+	popBoxAction(pre, mUrl);
+	//银行
+	var outObj = $("#bank");
+	var pre = "bank";
+	var text = "银&nbsp;&nbsp;&nbsp;&nbsp;行&nbsp;";
+	var mUrl = "${pageContext.request.contextPath}/getData_bankData.action?"; //获取数据的url
+	popBoxHtml(outObj, pre, text);
+	popBoxAction(pre, mUrl);
+	
+	//金融通道
+	var outObj = $("#finaChannel");
+	var pre = "finaChannel";
+	var text = "金融通道&nbsp;";
+	var mUrl = "${pageContext.request.contextPath}/getData_finaChannelData.action?proflag=000"; //获取数据的url
+	popBoxHtml(outObj, pre, text);
+	popBoxAction(pre, mUrl);
+	
+	//业务场景
+	var outObj = $("#busiScenario");
+	var pre = "busiScenario";
+	var text = "业务场景&nbsp;";
+	var mUrl = "${pageContext.request.contextPath}/getData_busiScenarioData.action?proflag=001"; //获取数据的url
+	popBoxHtml(outObj, pre, text);
+	popBoxAction(pre, mUrl);
+	
+	//支付工具
+	var outObj = $("#payTool");
+	var pre = "payTool";
+	var text = "支付工具&nbsp;";
+	var mUrl = "${pageContext.request.contextPath}/getData_payToolData.action?proflag=000"; //获取数据的url
+	popBoxHtml(outObj, pre, text);
+	popBoxAction(pre, mUrl);
+	
+	//充值方式
+	var outObj = $("#rechargeType");
+	var pre = "rechargeType";
+	var text = "支付工具&nbsp;";
+	var mUrl = "${pageContext.request.contextPath}/getData_rechargeTypeData.action"; //获取数据的url
+	popBoxHtml(outObj, pre, text);
+	popBoxAction(pre, mUrl);
+	
+	//商户
+	var outObj = $("#merchant");
+	var pre = "merchant";
+	var text = "商户名称&nbsp;";
+	var mUrl = "${pageContext.request.contextPath}/getData_merchantData.action?proflag=000"; //获取数据的url
+	popBoxHtml(outObj, pre, text);
+	popBoxAction(pre, mUrl);
+	
+	//分期
+	var outObj = $("#installment_num");
+	var pre = "installment_num";
+	var text = "分期&nbsp;";
+	var mUrl = "${pageContext.request.contextPath}/getData_installment_numData.action"; //获取数据的url
+	popBoxHtml(outObj, pre, text);
+	popBoxAction(pre, mUrl);
+	
+	//用户来源
+	var outObj = $("#userSource");
+	var pre = "userSource";
+	var text = "用户来源&nbsp;";
+	var mUrl = "${pageContext.request.contextPath}/getData_userSourceData.action"; //获取数据的url
+	popBoxHtml(outObj, pre, text);
+	popBoxAction(pre, mUrl);
+	
+	//省份号段
+	var outObj = $("#province2");
+	var pre = "province";
+	var text = "省份&nbsp;";
+	var mUrl = "${pageContext.request.contextPath}/getData_provinceData.action"; //获取数据的url
+	popBoxHtml(outObj, pre, text);
+	popBoxAction(pre, mUrl);
+	
+	//地市号段
+	var outObj = $("#city2");
+	var pre = "city";
+	var text = "地市&nbsp;";
+	var mUrl = "${pageContext.request.contextPath}/getData_cityData.action"; //获取数据的url
+	popBoxHtml(outObj, pre, text);
+	popBoxAction(pre, mUrl);
+
+	
+	//交易类型
+	var outObj = $("#trade");
+	var pre = "trade";
+	var text = "交易类型&nbsp;";
+	var mUrl = "${pageContext.request.contextPath}/getData_tradeData.action?proflag=000"; //获取数据的url
+	popBoxHtml(outObj, pre, text);
+	popBoxAction(pre, mUrl);
+	
+	//下拉菜单生成
+	//账户类型
+	var selObj = $("#accountType");
+	var mUrl = "${pageContext.request.contextPath}/getData_accountTypeData.action"; //获取数据的url
+	
+	selectadd(selObj,mUrl,"");
+	
+	//---------------时间区间选取控件-----------------------------
+	var dateFlag = 1; //0表示当前日期控件是精确到月，1表示当前日期控件是精确到日
+	var reportfile_m = "/zhht/wozh/tas_wo_bindfail_m.raq";//月报表文件
+	var reportfile_d = "/zhht/wozh/tas_wo_bindfail_d.raq";//日报表文件
+	var picPath = "${pageContext.request.contextPath}/images/calendar.gif";
+	var today = "<%=today %>";
+	var month = "<%=month %>";
+	initDatepicker(dateFlag,reportfile_m,reportfile_d,picPath,month,today);
+});
+</script>
+
+
+<body>
+
+	<div id="reportContent"><img alt="#" src="${pageContext.request.contextPath}/images/magnifier.gif">&nbsp;&nbsp;<%=reportTitle%></div>
+	<form action="${pageContext.request.contextPath}/zhht_report_.action" method="post" target="reportFrame">
+	<input id="reportfile" type="hidden" name="reportCondis.reportName" value="/zhht/wozh/tas_wo_bindfail_d.raq"/>
+	<input id="reportfile" type="hidden" name="reportCondis.reportFileName" value="<%=reportTitle%>"/>
+	<table id="filters"  class="ui-widget" style="width:100%;">
+		<tr>
+			<td>报表类型：</td><td>
+			<select id="reportType" class="text ui-widget-content ui-corner-all">
+				<option value="dReport">日报</option>
+				<option value="mReport">月报</option>
+			</select>
+			</td>
+			<td>开始时间：</td><td><input type="text" readonly="readonly" id="startDate" name="reportCondis.startDate" value="<%=today %>" style="width:150px;" class="text ui-widget-content ui-corner-all"></td>
+			<td>结束时间：</td><td><input type="text" readonly="readonly" id="endDate" name="reportCondis.endDate" value="<%=today %>" style="width:150px;" class="text ui-widget-content ui-corner-all"></td>
+			
+		</tr>
+		<tr>
+			<td>省份：</td><td><div id="province"></div></td>
+			<td>地市：</td><td><div id="city"></div></td>
+			<td>省份号段：</td><td><div id="province2"></div></td>
+			<td>地市号段：</td><td><div id="city2"></div></td>
+		</tr>
+		<tr>
+			<td>分期：</td><td><div id="installment_num"></div></td>
+			<td>商户名称：</td><td><div id="merchant"></div></td>
+			<td>银行：</td><td><div id="bank"></div></td>
+			<td>账户类型：</td><td><div id="accountType"></div></td>
+		</tr>
+		
+		<tr>
+			<td>用户来源：</td><td><div id="userSource"></div></td>
+			<td>充值方式：</td><td><div id="rechargeType"></div></td>
+			<td>支付工具：</td><td><div id="payTool"></div></td>
+		</tr>
+		
+		<tr>
+			<td>金融通道：</td><td><div id="finaChannel"></div></td>
+			<td>业务场景：</td><td><div id="busiScenario"></div></td>
+			<td>渠道：</td><td><div id="channel"></div></td>
+			<td>交易类型：</td><td><div id="trade"></div></td>
+		</tr>
+		
+	</table>
+	</form>
+</body>
+</html>  

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="com.unicompay.jf.model.RechargeType">
+	<resultMap type="com.unicompay.jf.model.RechargeType" id="rechargeType">  
+        <result property="id" column="id"/>  
+        <result property="name" column="name" />  
+        <result property="extra" column="extra" />  
+    </resultMap>  
+    <select id="rechargeTypeFindAll" resultMap="rechargeType">  
+        select RECHARGE_CODE as id,RECHARGE_NAME as name from bdw_dim.DIM_RECHARGE_MODE order by RECHARGE_CODE
+    </select>  
+    <select id="rechargeTypeSearch" parameterType="String"  resultMap="rechargeType">  
+        select RECHARGE_CODE as id,RECHARGE_NAME as name from bdw_dim.DIM_RECHARGE_MODE where RECHARGE_CODE like '%'||#{key}||'%' or RECHARGE_NAME like '%'||#{key}||'%' order by id
+    </select>  
+
+</mapper>

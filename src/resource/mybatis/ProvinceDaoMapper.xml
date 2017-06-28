@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="com.unicompay.jf.model.Province">
+	<resultMap type="com.unicompay.jf.model.Province" id="province">  
+        <result property="id" column="id" />  
+        <result property="name" column="name" />  
+        <result property="extra" column="extra" />  
+    </resultMap>  
+    <select id="provinceFindAll" resultMap="province">  
+    	select distinct a.prov_name as id , a.prov_name as name from bdw_dim.dim_phone_section a  order by id
+    </select>  
+    <select id="provinceSearch" parameterType="String"  resultMap="province">  
+        select distinct a.prov_name as id , a.prov_name as name from bdw_dim.dim_phone_section a  where a.prov_name like '%'||#{key}||'%' order by id
+    </select>  
+
+	<!--新的省份维度控件  -->
+	<select id="provinceNFindAll" resultMap="province">  
+    	select distinct a.PROV_CODE as id , a.prov_name as name from bdw_dim.dim_prov_city a order by id
+    </select>  
+    <select id="provinceNSearch" parameterType="String"  resultMap="province">  
+        select distinct a.PROV_CODE as id , a.prov_name as name from bdw_dim.dim_prov_city a  where (a.PROV_CODE like '%'||#{key}||'%' or a.prov_name like '%'||#{key}||'%') order by id
+    </select> 
+</mapper>

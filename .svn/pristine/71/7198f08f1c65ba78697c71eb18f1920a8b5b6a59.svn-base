@@ -1,0 +1,41 @@
+<!DOCTYPE struts PUBLIC
+  "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+  "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="interceptors" extends="struts-default">
+		<interceptors>
+			<!-- 定义拦截器 -->
+			<!-- <interceptor name="拦截器名" class="拦截器实现类"/> -->
+			<interceptor name="UserLoginInterceptor" class="com.unicompay.jf.util.UserLoginInterceptor"/>
+			<!-- 定义拦截器栈 
+			<interceptor-stack name="拦截器栈名">
+				<interceptor-ref name="拦截器一"/>
+				<interceptor-ref name="拦截器二"/>
+			</interceptor-stack>
+			-->
+		</interceptors>
+	</package>
+    <!--登陆  -->
+    <include file="/resource/struts/widget.xml"/>
+    <include file="/resource/struts/jrtdcbReport.xml"/>
+    <include file="/resource/struts/llh_yyqyReport.xml"/>
+    <include file="/resource/struts/LLHJYReport.xml"/>
+	<include file="/resource/struts/WoAccountReport.xml"/>
+	<include file="/resource/struts/xykfqReport.xml"/>
+	<include file="/resource/struts/ctzzReport.xml"/>
+	<include file="/resource/struts/dlszjgjReport.xml"/>
+	<include file="/resource/struts/xxposfqReport.xml"/>
+	<include file="/resource/struts/zhhtReport.xml"/>
+	<include file="/resource/struts/misposfqReport.xml"/>
+	<include file="/resource/struts/zzzdReport.xml"/>
+	<include file="/resource/struts/zcywReport.xml"/>
+	<include file="/resource/struts/misposjyReport.xml"/>
+	<include file="/resource/struts/misposzjgjReport.xml"/>
+	<include file="/resource/struts/woygzcReport.xml"/>
+	<include file="/resource/struts/jrtdfxReport.xml"/>
+	<include file="/resource/struts/xxsbReport.xml"/>
+	<include file="/resource/struts/wxsxfReport.xml"/>
+	<include file="/resource/struts/dfywReport.xml"/>
+	<include file="/resource/struts/gyptReport.xml"/>
+	
+</struts>

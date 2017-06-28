@@ -1,0 +1,97 @@
+package com.unicompay.jf.action;
+
+import com.unicompay.jf.model.ReportCondis;
+import com.unicompay.jf.util.ReportParamTools;
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
+
+/** 
+ * @author lit8@chinaunicom.cn
+ * @version 2015年6月19日 下午3:21:02 
+ * 
+ */
+@Controller  
+@Scope("prototype")  
+public class ZhhtReportAction extends BaseActionSupport {
+
+	private static Logger logger = Logger.getLogger(ZhhtReportAction.class);
+	private static final long serialVersionUID = 1L;
+	@Autowired
+	private ReportParamTools rpt;
+	private ReportCondis reportCondis;
+	
+    public String execute() throws Exception {
+    	
+    	String param = rpt.getParam(reportCondis);
+    	
+
+    	logger.info("reportcondition="+param);
+    	
+    	request.setAttribute("param", param);
+    	request.setAttribute("report", reportCondis.getReportName());
+    	request.setAttribute("reportFileName", reportCondis.getReportFileName());
+        return SUCCESS;  
+    }
+    
+    public String search(){
+		return "default";
+
+	}
+    /*交费通*/
+	public String jftBusiness(){
+		return "jftBusiness";
+
+	}
+	public String jftIncrement(){
+		return "jftIncrement";
+
+	}
+
+	public String jftPaymentfail(){
+		return "jftPaymentfail";
+
+	}
+	
+	public String jftPaytrade(){
+		return "jftPaytrade";
+
+	}
+	public String jftUsertotal(){
+		return "jftUsertotal";
+
+	}
+	
+	/*沃账户*/
+	public String wozhBindcard(){
+		return "wozhBindcard";
+
+	}
+	
+	public String wozhBindfail(){
+		return "wozhBindfail";
+
+	}
+	public String wozhCreate(){
+		return "wozhCreate";
+
+	}
+	/*用户奖励*/
+	public String jlUser() {
+		return "jlUser";
+	}
+	/*营业员奖励*/
+	public String jlOper() {
+		return "jlOper";
+	}
+
+	
+	public ReportCondis getReportCondis() {
+		return reportCondis;
+	}
+
+	public void setReportCondis(ReportCondis reportCondis) {
+		this.reportCondis = reportCondis;
+	}
+}

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="com.unicompay.jf.model.Installment">
+	<resultMap type="com.unicompay.jf.model.Installment" id="installment">  
+        <result property="id" column="id"/>  
+        <result property="name" column="name" />  
+        <result property="extra" column="extra" />  
+    </resultMap>  
+    <select id="installmentFindAll" resultMap="installment">  
+        select INSTALLMENT_NUM as id,INSTALLMENT_name as name from bdw_dim.Dim_INSTALLMENT_NUM order by length(INSTALLMENT_NUM) ,INSTALLMENT_NUM
+    </select>  
+    <select id="installmentSearch" parameterType="String"  resultMap="installment">  
+        select distinct INSTALLMENT_NUM as id,INSTALLMENT_name as name from bdw_dim.Dim_INSTALLMENT_NUM where INSTALLMENT_NUM like '%'||#{key}||'%' or INSTALLMENT_NUM like '%'||#{key}||'%' order by id
+    </select>  
+
+</mapper>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="com.unicompay.jf.model.PayTool">
+	<resultMap type="com.unicompay.jf.model.PayTool" id="payTool">  
+        <result property="id" column="id" />  
+        <result property="name" column="name" />  
+        <result property="extra" column="extra" />  
+    </resultMap>  
+    <select id="payFindAll" resultMap="payTool">  
+        select PAY_TOOLS_CODE as id ,PAY_TOOLS_NAME as name from bdw_dim.DIM_PAY_TOOLS  order by id
+    </select>  
+    <select id="paySearch" parameterType="String"  resultMap="payTool">  
+        select PAY_TOOLS_CODE as id ,PAY_TOOLS_NAME as name from bdw_dim.DIM_PAY_TOOLS where FILTER_CODE = #{proflag} and (PAY_TOOLS_CODE like '%'||#{find}||'%' or PAY_TOOLS_NAME like '%'||#{find}||'%') order by id
+    </select>  
+
+</mapper>

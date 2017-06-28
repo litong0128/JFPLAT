@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">  
+<struts>   
+	<!--  
+    <constant name="struts.configuration.xmlreload" value="true"/>  
+            当struts配置文件修改时是否自动加载  
+    <constant name="struts.devMode" value="true"/>  
+            开发模式下打印详细的错误信息  
+    <constant name="struts.ui.theme" value="xhtml"/>  
+    -->
+    <package name="gyptReport" extends="interceptors" >
+        <action name="gypt_report_*" class="com.unicompay.jf.action.GyptReportAction" method="{1}">
+            <result>/reportJsp/showReport.jsp</result>
+            <result name="input">/index.jsp</result>
+            <result name="default">/jsp/gypt/jft/business/search_frame.jsp</result>
+            <result name="pay">/jsp/gypt/pay/search_frame.jsp</result>
+            <result name="trade">/jsp/gypt/trade/search_frame.jsp</result>
+            <result name="remit">/jsp/gypt/remit/search_frame.jsp</result>
+          
+            
+            <interceptor-ref name="defaultStack" />
+            <!-- <interceptor-ref name="UserLoginInterceptor"/>   -->
+        </action>
+          
+    </package>  
+</struts> 

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="com.unicompay.jf.model.UserSource">
+	<resultMap type="com.unicompay.jf.model.UserSource" id="userSource">  
+        <result property="id" column="id" />  
+        <result property="name" column="name" />  
+        <result property="extra" column="extra" />  
+    </resultMap>  
+    <select id="userSourceFindAll" resultMap="userSource">  
+        select a.SYS_SOURCE_CODE as id ,a.SYS_SOURCE_NAME as name from bdw_dim.DIM_SYS_SOURCE a order by id
+    </select>  
+    <select id="userSourceSearch" parameterType="String"  resultMap="userSource">  
+        select a.SYS_SOURCE_CODE as id ,a.SYS_SOURCE_NAME as name from bdw_dim.DIM_SYS_SOURCE a where a.SYS_SOURCE_CODE like '%'||#{key}||'%' or a.SYS_SOURCE_NAME like '%'||#{key}||'%' order by id
+    </select>  
+
+</mapper>

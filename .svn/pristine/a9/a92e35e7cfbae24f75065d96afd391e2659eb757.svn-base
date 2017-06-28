@@ -1,0 +1,197 @@
+function initDatepicker(dateFlag, reportfile_m, reportfile_d, picPath, month,today,week,reportfile_w) {
+	$("#startDate").datepicker({
+		showOn : "button",
+		buttonImage : picPath,
+		buttonImageOnly : true,
+		buttonText : "Select date",
+		showOtherMonths : true,
+		selectOtherMonths : false,
+		dateFormat : "yymmdd",
+		changeMonth : true,
+		numberOfMonths : 1,
+		firstDay : 1,
+		//showWeek : true,
+		onClose : function(selectedDate) {
+			// alert(dateFlag);
+			if (dateFlag == 0) {
+				changeTo(selectedDate);
+			} else if (dateFlag == 1) {
+				$("#endDate").datepicker("option", "minDate", selectedDate);
+			} else if(dateFlag == 2){
+				//alert(selectedDate);
+				changeToWeek(selectedDate);
+			}
+		}
+	});
+	$("#endDate").datepicker({
+		showOn : "button",
+		buttonImage : picPath,
+		buttonImageOnly : true,
+		buttonText : "Select date",
+		showOtherMonths : true,
+		selectOtherMonths : false,
+		dateFormat : "yymmdd",
+		changeMonth : true,
+		numberOfMonths : 1,
+		firstDay : 1,
+		onClose : function(selectedDate) {
+			// alert(selectedDate);
+			if (dateFlag == 0) {
+				changeFrom(selectedDate);
+			} else if (dateFlag == 1) {
+				$("#startDate").datepicker("option", "maxDate", selectedDate);
+			} else if(dateFlag == 2){
+				changeFromWeek(selectedDate);
+			}
+		}
+	});
+	// 时间控件精确到月的onclose事件
+	function changeTo(selectedDate) {
+		// alert(selectedDate);
+		var selectedDate = selectedDate.substr(0, 4) + '/'
+				+ selectedDate.substr(4, 2) + '/' + 01;
+		var month = new Date(selectedDate).getMonth();
+		var year = new Date(selectedDate).getFullYear();
+		var date = new Date(year, month, 1);
+		// var date = new Date(selectedDate);
+		// alert(year);
+		if ($("#endDate").val() != "") {
+			var t = $("#endDate").val();
+			var vt = t.substr(0, 4) + '/' + t.substr(4, 2) + '/' + '01';
+			var toDate = new Date(vt);
+			// alert(year+' '+month+' '+vt);
+			if (date.getTime() > toDate.getTime()) {
+				alert("开始时间应小于等于结束时间");
+				$("#startDate").val("");
+			}
+		}
+	}
+	function changeFrom(selectedDate) {
+		var selectedDate = selectedDate.substr(0, 4) + '/'
+				+ selectedDate.substr(4, 2) + '/' + 01;
+		var month = new Date(selectedDate).getMonth();
+		var year = new Date(selectedDate).getFullYear();
+		var date = new Date(year, month, 1);
+		if ($("#startDate").val() != "") {
+			var f = $("#startDate").val();
+			var vf = f.substr(0, 4) + '/' + f.substr(4, 2) + '/' + '01';
+			var fromDate = new Date(vf);
+			if (fromDate.getTime() > date.getTime()) {
+				alert("结束时间应大于等于开始时间");
+				$("#endDate").val("");
+			}
+		}
+	}
+	
+	
+	//时间控件精确到周的onclose事件
+	function changeToWeek(selectedDate){
+		//alert(selectedDate);
+		var ww = getWeekNumber(selectedDate);
+		//alert(ww);
+		$("#startDate").val(ww);
+		if($("#endDate").val() != ""){
+			var t = $("#endDate").val();
+			if(ww > t){
+				alert("开始时间应小于等于结束时间");
+				$("#startDate").val("");
+			}
+		}
+	}
+	function changeFromWeek(selectedDate){
+		//alert(selectedDate);
+		var ww = getWeekNumber(selectedDate);
+		//alert(ww);
+		$("#endDate").val(ww);
+		if($("#startDate").val() != ""){
+			var f = $("#startDate").val();
+			if(f > ww){
+				alert("结束时间应大于等于开始时间");
+				$("#endDate").val("");
+			}
+		}
+	}
+
+	//得到日期是一年中的第几周 d：2015/06/18
+	function getWeekNumber(d) {
+		// Copy date so don't modify original
+		
+		if(d.length != 10){ //处理不选择时间
+			d = new Date();
+		}else{
+			d = new Date(d);
+		}
+		
+		day = d.getDate();
+		
+		//d.setHours(0,0,0);
+		// Set to nearest Thursday: current date + 4 - current day number
+		// Make Sunday's day number 7
+		//var day = d.getDay();
+		//alert(d.substr(6, 8));
+		//d.setDate(d.getDate() + 4 - d.getDay());
+		// Get first day of year
+		//var yearStart = new Date(d.getFullYear(),0,1);
+		// Calculate full weeks to nearest Thursday
+		//var weekNo = Math.ceil(( ( (d - yearStart) / 86400000) + 1)/7);
+		var weekNo = $.datepicker.iso8601Week(d);
+		//alert($.datepicker.iso8601Week(d));
+		var getFullYear;
+		if(weekNo < 10){
+			weekNo = "0" + weekNo;
+			getFullYear = d.getFullYear();
+		}else if((weekNo == 53 || weekNo == 52) && day < 20 ){
+			getFullYear = d.getFullYear()-1;
+		}else {
+			getFullYear = d.getFullYear();
+		}
+		// Return year and week number
+		var getWeekNo = weekNo;
+		return getFullYear+""+getWeekNo;
+	}
+	
+	
+	
+	
+	function changeRptType() {
+		if ($("#reportType").val() == "mReport") {
+			// 月
+			dateFlag = 0;
+			$("#startDate").datepicker("option", "dateFormat", "yymm");
+			$("#endDate").datepicker("option", "dateFormat", "yymm");
+			// 更改最大最小时间限制
+			$("#endDate").datepicker("option", "minDate",new Date("1900", "1", "1"));
+			$("#startDate").datepicker("option", "maxDate",new Date("2900", "1", "1"));
+			$("#startDate").val(month);
+			$("#endDate").val(month);
+			$("#reportfile").val(reportfile_m);
+		} else if ($("#reportType").val() == "dReport") {
+			// 日
+			dateFlag = 1;
+			$("#startDate").datepicker("option", "dateFormat", "yymmdd");
+			$("#endDate").datepicker("option", "dateFormat", "yymmdd");
+			$("#startDate").val(today);
+			$("#endDate").val(today);
+			$("#reportfile").val(reportfile_d);
+		}else if($("#reportType").val() == "wReport"){
+			//周
+			dateFlag = 2;
+			$( "#startDate" ).datepicker( "option", "dateFormat", "yy/mm/dd" );
+			$( "#endDate" ).datepicker( "option", "dateFormat", "yy/mm/dd" );
+			//更改最大最小时间限制
+			$( "#endDate" ).datepicker( "option", "minDate", new Date("1900","1","1") );
+			$( "#startDate" ).datepicker( "option", "maxDate", new Date("2900","1","1") );
+			
+			$( "#startDate" ).val(getWeekNumber(new Date()));
+			$( "#endDate" ).val(getWeekNumber(new Date()));
+			$("#reportfile").val(reportfile_w);
+		}
+	}
+	
+	// 精确度日月切换
+	$("#reportType").change(function(){
+		changeRptType();
+	});
+	
+	changeRptType();
+}

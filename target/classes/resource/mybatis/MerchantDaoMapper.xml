@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="com.unicompay.jf.model.Merchant">
+	<resultMap type="com.unicompay.jf.model.Merchant" id="merchant">  
+        <result property="id" column="id" />  
+        <result property="name" column="name" />  
+        <result property="extra" column="extra" />  
+    </resultMap>  
+    <select id="merchantFindAll" resultMap="merchant">  
+        select MER_NO as id ,MER_NAME as name from bdw_dim.DIM_MER order by id limit 200
+    </select>  
+    <select id="merchantSearch" parameterType="String"  resultMap="merchant">  
+        select MER_NO as id ,MER_NAME as name from bdw_dim.DIM_MER where MER_NAME like '%'||#{key}||'%' or MER_NO like '%'||#{key}||'%' order by id limit 200
+    </select>  
+
+</mapper>

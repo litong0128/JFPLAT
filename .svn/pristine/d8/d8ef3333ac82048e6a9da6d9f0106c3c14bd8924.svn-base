@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="com.unicompay.jf.model.BusiScenario">
+	<resultMap type="com.unicompay.jf.model.BusiScenario" id="busiScenario">  
+        <result property="id" column="id" />  
+        <result property="name" column="name" />  
+        <result property="extra" column="extra" />  
+    </resultMap>  
+    <select id="busiFindAll" resultMap="busiScenario">  
+        select BUSI_TYPE_CODE as id ,BUSI_TYPE_NAME as name,'1' as extra from bdw_dim.DIM_BUSI_TYPE where FILTER_CODE = #{proflag} order by id
+    </select>  
+    <select id="busiSearch" parameterType="java.util.Map"  resultMap="busiScenario">  
+        select BUSI_TYPE_CODE as id ,BUSI_TYPE_NAME as name,'1' as extra from bdw_dim.DIM_BUSI_TYPE where FILTER_CODE = #{proflag} and (BUSI_TYPE_CODE like '%'||#{find}||'%' or BUSI_TYPE_NAME like '%'||#{find}||'%') order by id
+    </select>  
+
+</mapper>

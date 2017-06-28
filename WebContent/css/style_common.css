@@ -1,0 +1,71 @@
+@charset "utf-8";
+/*整体  */
+body{
+	font-family: monospace;
+	
+}
+/*调整table中tr样式  */
+tr {
+	font-style: normal;
+	font-family: monospace;
+	}
+
+/*调整表单数据样式  */
+input{
+	border:#000000 solid 1px;
+	font-family: monospace;
+	}
+
+/*调整标题样式  */
+#reportContent{
+	width:100%;
+	height:35px;
+	/* background-color: #C1D8FA; */
+	font-size: large;
+	font-weight: bold;
+	background-image: url(../images/reportContentBackground.gif);
+  	background-repeat: repeat-x;
+	}
+	
+/*调整日期类型样式  */
+#reportType{
+	width:170px;
+	}
+	
+	
+.searchFrame{
+	background-image: url(../images/searchBackground.gif);
+  	background-repeat: repeat; 
+  	border: #808080 solid 1px;
+	
+	}
+	
+.searchFrameContent{
+	background-color: #CCCCFF;
+	}
+	
+.checkBox{border:1px solid #000000; background:#beceeb;}
+
+
+
+/* 控件样式设置 */
+.tempArea {
+    background: none repeat scroll 0% 0%;
+    min-height: 26px;
+    max-height: 80px;
+    overflow: auto;
+    width: 550px;
+}
+.aa_cont {
+    float: left;
+    vertical-align: middle;
+    height: 18px;
+    white-space: nowrap;
+    padding: 0px 5px;
+    margin: 3px 2px 2px 3px;
+}
+
+.apadd_suc {
+    border: 1px solid #BBD8FB;
+    background: none repeat scroll 0% 0% #F3F7FD;
+}

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="com.unicompay.jf.model.CardType">
+	<resultMap type="com.unicompay.jf.model.CardType" id="cardType">  
+        <result property="id" column="id"/>  
+        <result property="name" column="name" />  
+        <result property="extra" column="extra" />  
+    </resultMap>  
+    <select id="cardTypeFindAll" resultMap="cardType">  
+        select CARD_TYPE_CODE as id,CARD_TYPE_NAME as name from BDW_DIM.DIM_CARD_TYPE order by CARD_TYPE_CODE
+    </select>  
+    <select id="cardTypeSearch" parameterType="java.util.Map"  resultMap="cardType">  
+        select CARD_TYPE_CODE as id,CARD_TYPE_NAME as name from BDW_DIM.DIM_CARD_TYPE where (CARD_TYPE_CODE like '%'||#{find}||'%' or CARD_TYPE_NAME like '%'||#{find}||'%') order by CARD_TYPE_CODE
+    </select>  
+
+</mapper>

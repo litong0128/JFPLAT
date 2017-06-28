@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="com.unicompay.jf.model.Bank">
+	<resultMap type="com.unicompay.jf.model.Bank" id="bank">  
+        <result property="id" column="id"/>  
+        <result property="name" column="name" />  
+        <result property="extra" column="extra" />  
+    </resultMap>  
+    <select id="bankFindAll" resultMap="bank">  
+        select distinct BANK_CODE as id,BANK_NAME as name from bdw_dim.dim_bank_collating order by id
+    </select>  
+    <select id="bankSearch" parameterType="String"  resultMap="bank">  
+        select distinct BANK_CODE as id,BANK_NAME as name from bdw_dim.dim_bank_collating where BANK_NAME like '%'||#{key}||'%' or BANK_CODE like '%'||#{key}||'%' order by id
+    </select>  
+
+</mapper>

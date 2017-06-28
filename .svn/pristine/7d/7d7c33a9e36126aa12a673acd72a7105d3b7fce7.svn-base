@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="com.unicompay.jf.model.Channel">
+	<resultMap type="com.unicompay.jf.model.Channel" id="channel">  
+        <result property="id" column="id"/>  
+        <result property="name" column="name" />  
+        <result property="extra" column="extra" />  
+    </resultMap>  
+    <select id="channelFindAll" resultMap="channel">  
+        select CHANL_CODE as id,CHANL_NAME as name from bdw_dim.DIM_CHANL_SOURCE where FILTER_CODE = #{proflag} order by CHANL_CODE
+    </select>  
+    <select id="channelSearch" parameterType="java.util.Map"  resultMap="channel">  
+        select CHANL_CODE as id,CHANL_NAME as name from bdw_dim.DIM_CHANL_SOURCE where FILTER_CODE = #{proflag} and (CHANL_CODE like '%'||#{find}||'%' or CHANL_NAME like '%'||#{find}||'%') order by id
+    </select>  
+
+</mapper>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">  
+<struts>   
+	<!--  
+    <constant name="struts.configuration.xmlreload" value="true"/>  
+            当struts配置文件修改时是否自动加载  
+    <constant name="struts.devMode" value="true"/>  
+            开发模式下打印详细的错误信息  
+    <constant name="struts.ui.theme" value="xhtml"/>  
+    -->
+    <package name="dfywReport" extends="interceptors" >
+        <action name="dfyw_report_*" class="com.unicompay.jf.action.DfywReportAction" method="{1}">
+            <result>/reportJsp/showReport.jsp</result>
+            <result name="prov">/jsp/dfyw/prov/search_frame.jsp</result>
+            <result name="fail">/jsp/dfyw/fail/search_frame.jsp</result>
+            <result name="mer">/jsp/dfyw/mer/search_frame.jsp</result>
+            <result name="totalmer">/jsp/dfyw/totalmer/search_frame.jsp</result>
+            <interceptor-ref name="defaultStack" />
+            <!-- <interceptor-ref name="UserLoginInterceptor"/>   -->
+        </action>
+          
+    </package>  
+</struts> 

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="com.unicompay.jf.model.MerBusiType">
+	<resultMap type="com.unicompay.jf.model.MerBusiType" id="merbusiType">  
+        <result property="id" column="id" />  
+        <result property="name" column="name" />  
+        <result property="extra" column="extra" />  
+    </resultMap>  
+    <select id="merbusiFindAll" resultMap="merbusiType">  
+        select MER_BUSI_TYPE_CODE as id ,MER_BUSI_TYPE_NAME as name,'1' as extra from bdw_dim.DIM_MER_BUSI_TYPE order by id
+    </select>  
+    <select id="merbusiSearch" parameterType="java.util.Map"  resultMap="merbusiType">  
+        select MER_BUSI_TYPE_CODE as id ,MER_BUSI_TYPE_NAME as name,'1' as extra from bdw_dim.DIM_MER_BUSI_TYPE where (MER_BUSI_TYPE_CODE like '%'||#{find}||'%' or MER_BUSI_TYPE_NAME like '%'||#{find}||'%') order by id
+    </select>  
+
+</mapper>

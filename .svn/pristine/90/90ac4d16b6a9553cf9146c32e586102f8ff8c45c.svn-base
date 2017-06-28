@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Checkboxes and radio buttons customization (jQuery and Zepto) plugin</title>
+  <meta charset="utf-8">
+  <meta content="width=device-width" name="viewport">
+  <link href="../skins/all.css" rel="stylesheet">
+  <script src="./js/jquery.js"></script>
+  <script src="../icheck.js"></script>
+</head>
+
+<script>
+$(document).ready(function(){
+
+  var bank1 = $('#bank1');
+  var bank2 = $('#bank2');
+
+//clicked
+  bank1.on('ifClicked', function(event){
+    bank2.iCheck('uncheck');
+    //alert("click:"+$('#bank1').prop("checked"));
+    if($('#bank1').prop("checked") == false){
+      $("input[name='name']").iCheck('disable');
+    }else{
+      $("input[name='name']").iCheck('enable');
+    }
+    
+  });
+
+  bank2.on('ifClicked', function(event){
+    bank1.iCheck('uncheck');
+  });
+
+  $('input').iCheck({
+    checkboxClass: 'icheckbox_minimal-blue',
+    radioClass: 'iradio_minimal-blue',
+  });
+
+  //$('#bank').click(function(){
+  //  alert("1232");
+  //});
+  //bank.on('ifClicked', function(event){
+    //alert($('#bank').prop("checked"));
+    //$('#name').prop("checked", false);
+    //$('#name').iCheck('check');
+    //alert($('#name').parent().next().text());
+    //$("input[name='name']:checked").each(function(){
+    //  $(this).iCheck('uncheck');
+    //});
+   
+  //}); 
+
+
+});
+
+</script>
+
+<body>
+  <input id="bank1" type="checkbox"> <label for="bank1"> 银行1 </label> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <input id="bank2" type="checkbox"> <label for="bank2"> 银行2 </label> <br>
+<hr>
+  <input id="name1" type="checkbox" name="name" checked> <label for="name"> 姓名1 </label> <br>
+  <input id="name2" type="checkbox" name="name" checked> <label for="name"> 姓名2 </label> <br>
+  <input id="name3" type="checkbox" name="name" checked> <label for="name"> 姓名3 </label> <br>
+  <input id="male" type="radio" name="sex"> <label for="male"> 男 </label> <br>
+  <input id="female" type="radio" name="sex" checked> <label for="female"> 女 </label> <br>
+</body>
+</html>

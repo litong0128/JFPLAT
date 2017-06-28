@@ -1,0 +1,671 @@
+package com.unicompay.jf.action;
+
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+
+import com.unicompay.jf.model.DisplayObject;
+import com.unicompay.jf.service.AccountTypeService;
+import com.unicompay.jf.service.BankService;
+import com.unicompay.jf.service.BusiScenarioService;
+import com.unicompay.jf.service.CardTypeService;
+import com.unicompay.jf.service.ChannelService;
+import com.unicompay.jf.service.CityService;
+import com.unicompay.jf.service.DepositeTypeService;
+import com.unicompay.jf.service.FinaChannelService;
+import com.unicompay.jf.service.InstallmentService;
+import com.unicompay.jf.service.LevelOrgService;
+import com.unicompay.jf.service.MerBusiTypeService;
+import com.unicompay.jf.service.MerchantService;
+import com.unicompay.jf.service.PayToolService;
+import com.unicompay.jf.service.ProvinceService;
+import com.unicompay.jf.service.RechargeTypeService;
+import com.unicompay.jf.service.TradeService;
+import com.unicompay.jf.service.TradeStateService;
+import com.unicompay.jf.service.UserSourceService;
+
+/**
+ * @author GuoYankui
+ * @version Feb 2, 2015 4:08:42 PM
+ * 
+ * 负责返回json数据
+ */
+@Controller
+public class GetDataAction extends BaseActionSupport {
+
+	private static final long serialVersionUID = -4536412372558433624L;
+	
+	private static Logger logger = Logger.getLogger(GetDataAction.class);  
+	private List<DisplayObject> mers; //前端显示要求Merchant对象必须有id，name属性；会自动转成json
+	private Map<String,String> paramMap = new HashMap<String, String>();
+	
+	@Autowired
+	public BankService bankService;
+	@Autowired
+	public BusiScenarioService busiScenarioService;
+	@Autowired
+	public FinaChannelService finaChannelService;
+	@Autowired
+	public PayToolService payToolService;
+	@Autowired
+	public UserSourceService userSourceService;
+	@Resource(name="provinceService")
+	public ProvinceService provinceService;
+	@Resource(name="cityService")
+	public CityService cityService;
+	@Autowired
+	public InstallmentService installmentService;
+	@Autowired
+	public ChannelService channelService;
+	@Autowired
+	public RechargeTypeService rechargeTypeService;
+	@Autowired
+	public AccountTypeService accountTypeService;
+	@Resource(name="provinceServiceN")
+	public ProvinceService provinceServiceN;
+	@Resource(name="cityServiceN")
+	public CityService cityServiceN;
+	@Autowired
+	public MerchantService merchantService;
+	@Autowired
+	public TradeService tradeService;
+	@Autowired
+	public DepositeTypeService depositeTypeService;
+	@Autowired
+	public CardTypeService cardTypeService;
+	@Autowired
+	public TradeStateService tradeStateService;
+	@Autowired
+	public MerBusiTypeService merBusiTypeService;
+	@Autowired
+	public  LevelOrgService levelOrgService;
+	/**
+	 * 查询银行名称字典
+	 * @return
+	 */
+	public String bankData(){
+		logger.debug("开始查询银行名称数据...");
+		
+		String find = request.getParameter("search");
+		try {
+			find = URLDecoder.decode(find, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		System.out.println("查询关键词:"+find);
+		
+		if(find == ""){
+			mers = convertToDisplay(bankService.getAll());
+		}else{
+			mers = convertToDisplay(bankService.search(find));
+		}
+		
+		return SUCCESS;
+	}
+	
+	/**
+	 * 查询业务场景名称字典数据
+	 * @return
+	 */
+	public String busiScenarioData(){
+		
+		logger.debug("开始查询业务场景名称数据...");
+		
+		String find = request.getParameter("search");
+		String proflag = request.getParameter("proflag");
+		try {
+			find = URLDecoder.decode(find, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		System.out.println("业务场景查询关键词:"+find);
+		
+		paramMap.put("find", find);
+		paramMap.put("proflag", proflag);
+		if(find == ""){
+			mers = convertToDisplay(busiScenarioService.getAll(proflag));
+		}else{
+			mers = convertToDisplay(busiScenarioService.search(paramMap));
+		}
+		
+		return SUCCESS;
+	}
+	
+	/**
+	 * 查询金融通道名称字典数据
+	 * @return
+	 */
+	public String finaChannelData(){
+		
+		logger.debug("开始查询金融通道名称数据...");
+		
+		String find = request.getParameter("search");
+		String proflag = request.getParameter("proflag");
+		try {
+			find = URLDecoder.decode(find, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		System.out.println("金融通道查询关键词:"+find);
+		paramMap.put("find", find);
+		paramMap.put("proflag", proflag);
+		if(find == ""){
+			mers = convertToDisplay(finaChannelService.getAll(proflag));
+		}else{
+			mers = convertToDisplay(finaChannelService.search(paramMap));
+		}
+		
+		return SUCCESS;
+	}
+	
+	/**
+	 * 查询业支付工具名称字典数据
+	 * @return
+	 */
+	public String payToolData(){
+		
+		logger.debug("开始查询支付工具名称数据...");
+		
+		String find = request.getParameter("search");
+		//业务线编号
+		String proflag = request.getParameter("proflag");
+		
+		try {
+			find = URLDecoder.decode(find, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		System.out.println("支付工具查询关键词:"+find);
+		paramMap.put("find", find);
+		paramMap.put("proflag", proflag);
+		
+		if(find == ""){
+			mers = convertToDisplay(payToolService.getAll(proflag));
+		}else{
+			mers = convertToDisplay(payToolService.search(paramMap));
+		}
+		
+		return SUCCESS;
+	}
+	
+	/**
+	 * 查询用户来源字典数据
+	 * @return
+	 */
+	public String userSourceData(){
+		
+		logger.debug("开始查询用户来源数据...");
+		
+		String find = request.getParameter("search");
+		try {
+			find = URLDecoder.decode(find, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		System.out.println("用户来源查询关键词:"+find);
+		
+		if(find == ""){
+			mers = convertToDisplay(userSourceService.getAll());
+		}else{
+			mers = convertToDisplay(userSourceService.search(find));
+		}
+		
+		return SUCCESS;
+	}
+	
+	/**
+	 * 查询省份字典数据
+	 * @return
+	 */
+	public String provinceData(){
+		
+		logger.debug("开始查询省份数据...");
+		
+		String find = request.getParameter("search");
+		try {
+			find = URLDecoder.decode(find, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		System.out.println("省份关键词:"+find);
+		
+		if(find == ""){
+			mers = convertToDisplay(provinceService.getAll());
+		}else{
+			mers = convertToDisplay(provinceService.search(find));
+		}
+		
+		return SUCCESS;
+	}
+	
+	
+	/**
+	 * 查询省份字典数据按照code查询
+	 * @return
+	 */
+	public String provinceDataN(){
+		
+		logger.debug("开始查询省份数据按照code查询...");
+		
+		String find = request.getParameter("search");
+		try {
+			find = URLDecoder.decode(find, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		System.out.println("省份关键词:"+find);
+		
+		if(find == ""){
+			mers = convertToDisplay(provinceServiceN.getAll());
+		}else{
+			mers = convertToDisplay(provinceServiceN.search(find));
+		}
+		
+		return SUCCESS;
+	}
+	
+	/**
+	 * 查询业地市字典数据
+	 * @return
+	 */
+	public String cityData(){
+		
+		logger.debug("开始查询地市数据...");
+		
+		String find = request.getParameter("search");
+		String provName = request.getParameter("provName");
+		try {
+			provName = URLDecoder.decode(provName, "UTF-8");
+			find = URLDecoder.decode(find, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		System.out.println("地市查询关键词:"+find);
+		
+		if(find == ""){
+			mers = convertToDisplay(cityService.getAll(provName));
+		}else{
+			Map<String,String> key = new HashMap<String,String>();
+			key.put("provName", provName);
+			key.put("cityName",find);
+			mers = convertToDisplay(cityService.search(key));
+		}
+		
+		return SUCCESS;
+	}
+	
+	
+	/**
+	 * 查询业地市字典数据
+	 * @return
+	 */
+	public String cityDataN(){
+		
+		logger.debug("开始查询新地市数据...");
+		
+		String find = request.getParameter("search");
+		String provName = request.getParameter("provName");
+		try {
+			provName = URLDecoder.decode(provName, "UTF-8");
+			find = URLDecoder.decode(find, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		System.out.println("地市查询关键词:"+find);
+		
+		if(find == ""){
+			mers = convertToDisplay(cityServiceN.getAll(provName));
+		}else{
+			Map<String,String> key = new HashMap<String,String>();
+			key.put("provName", provName);
+			key.put("cityName",find);
+			mers = convertToDisplay(cityServiceN.search(key));
+		}
+		
+		return SUCCESS;
+	}
+	
+	
+	/**
+	 * 查询银行分期字典数据
+	 * @return
+	 */
+	public String installment_numData(){
+		
+		logger.debug("开始查询银行分期数据...");
+		
+		String find = request.getParameter("search");
+		try {
+			find = URLDecoder.decode(find, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		System.out.println("分期关键词:"+find);
+		
+		if(find == ""){
+			mers = convertToDisplay(installmentService.getAll());
+		}else{
+			mers = convertToDisplay(installmentService.search(find));
+		}
+		
+		return SUCCESS;
+	}
+	
+	/**
+	 * 查询渠道来源字典数据
+	 * @return
+	 */
+	public String channelData(){
+		
+		logger.debug("开始查询渠道来源数据...");
+		
+		String find = request.getParameter("search");
+		//业务编号
+		String proflag = request.getParameter("proflag");
+		try {
+			find = URLDecoder.decode(find, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		System.out.println("渠道关键词:"+find);
+		paramMap.put("find", find);
+		paramMap.put("proflag", proflag);
+		if(find == ""){
+			mers = convertToDisplay(channelService.getAll(proflag));
+		}else{
+			mers = convertToDisplay(channelService.search(paramMap));
+		}
+		
+		return SUCCESS;
+	}
+	
+	/**
+	 * 查询账户类型字典数据
+	 * @return
+	 */
+	public String accountTypeData(){
+		
+		logger.debug("开始查询账户类型数据...");
+		
+		String find = request.getParameter("search");
+		try {
+			find = URLDecoder.decode(find, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		System.out.println("渠道关键词:"+find);
+		
+		if(find == ""){
+			mers = convertToDisplay(accountTypeService.getAll());
+		}else{
+			mers = convertToDisplay(accountTypeService.search(find));
+		}
+		
+		return SUCCESS;
+	}
+	
+	/**
+	 * 查询充值方式字典数据
+	 * @return
+	 */
+	public String rechargeTypeData(){
+		
+		logger.debug("开始查询充值方式数据...");
+		
+		String find = request.getParameter("search");
+		try {
+			find = URLDecoder.decode(find, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		System.out.println("渠道关键词:"+find);
+		
+		if(find == ""){
+			mers = convertToDisplay(rechargeTypeService.getAll());
+		}else{
+			mers = convertToDisplay(rechargeTypeService.search(find));
+		}
+		
+		return SUCCESS;
+	}
+	
+	/**
+	 * 查询业商户名称字典数据
+	 * @return
+	 */
+	public String merchantData(){
+		
+		logger.debug("开始查询商户名称数据...");
+		
+		String find = request.getParameter("search");
+		//业务线编号
+		String proflag = request.getParameter("proflag");
+		
+		try {
+			find = URLDecoder.decode(find, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		System.out.println("商户查询关键词:"+find);
+		
+		if(find == ""){
+			mers = convertToDisplay(merchantService.getAll(proflag));
+		}else{
+			mers = convertToDisplay(merchantService.search(find));
+		}
+		
+		return SUCCESS;
+	}
+	
+	
+	/**
+	 * 查询交易类型字典数据
+	 * @return
+	 */
+	public String tradeData(){
+		
+		logger.debug("开始查询交易类型数据...");
+		
+		String find = request.getParameter("search");
+		//业务编号
+		String proflag = request.getParameter("proflag");
+		try {
+			find = URLDecoder.decode(find, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		System.out.println("交易类型关键词:"+find);
+		paramMap.put("find", find);
+		paramMap.put("proflag", proflag);
+		if(find == ""){
+			mers = convertToDisplay(tradeService.getAll(proflag));
+		}else{
+			mers = convertToDisplay(tradeService.search(paramMap));
+		}
+		
+		return SUCCESS;
+	}
+	
+	/**
+	 * 查询缴存类型字典数据
+	 * @return
+	 */
+	public String depositeTypeData(){
+		
+		logger.debug("开始查询缴存类型数据...");
+		
+		String find = request.getParameter("search");
+		//业务编号
+		String proflag = request.getParameter("proflag");
+		try {
+			find = URLDecoder.decode(find, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		System.out.println("缴存类型关键词:"+find);
+		paramMap.put("find", find);
+		paramMap.put("proflag", proflag);
+		if(find == ""){
+			mers = convertToDisplay(depositeTypeService.getAll(proflag));
+		}else{
+			mers = convertToDisplay(depositeTypeService.search(paramMap));
+		}
+		
+		return SUCCESS;
+	}
+	
+	/**
+	 * 查询卡类型字典数据
+	 * @return
+	 */
+	public String cardTypeData(){
+		
+		logger.debug("开始查询卡类型数据...");
+		
+		String find = request.getParameter("search");
+		//业务编号
+		String proflag = request.getParameter("proflag");
+		try {
+			find = URLDecoder.decode(find, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		System.out.println("卡类型关键词:"+find);
+		paramMap.put("find", find);
+		paramMap.put("proflag", proflag);
+		if(find == ""){
+			mers = convertToDisplay(cardTypeService.getAll(proflag));
+		}else{
+			mers = convertToDisplay(cardTypeService.search(paramMap));
+		}
+		
+		return SUCCESS;
+	}
+	
+	/**
+	 * 查询交易状态字典数据
+	 * @return
+	 */
+	public String tradeStateData(){
+		
+		logger.debug("开始查询交易状态数据...");
+		
+		String find = request.getParameter("search");
+		//业务编号
+		String proflag = request.getParameter("proflag");
+		try {
+			find = URLDecoder.decode(find, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		System.out.println("交易状态关键词:"+find);
+		paramMap.put("find", find);
+		paramMap.put("proflag", proflag);
+		if(find == ""){
+			mers = convertToDisplay(tradeStateService.getAll(proflag));
+		}else{
+			mers = convertToDisplay(tradeStateService.search(paramMap));
+		}
+		
+		return SUCCESS;
+	}
+	
+	
+	
+	/**
+	 * 查询商户业务类型字典数据
+	 * @return
+	 */
+	public String merBusiTypeData(){
+		
+		logger.debug("开始查询商户业务类型数据...");
+		
+		String find = request.getParameter("search");
+		//业务编号
+		String proflag = request.getParameter("proflag");
+		try {
+			find = URLDecoder.decode(find, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		System.out.println("商户业务类型关键词:"+find);
+		paramMap.put("find", find);
+		paramMap.put("proflag", proflag);
+		if(find == ""){
+			mers = convertToDisplay(merBusiTypeService.getAll(proflag));
+		}else{
+			mers = convertToDisplay(merBusiTypeService.search(paramMap));
+		}
+		
+		return SUCCESS;
+	}
+	
+	/**
+	 * 查询机构等级字典数据
+	 * @return
+	 */
+	public String levelOrgData(){
+		
+		logger.debug("开始查询机构等级型数据...");
+		
+		String find = request.getParameter("search");
+		//业务编号
+		String orglevel = request.getParameter("orglevel");
+		try {
+			find = URLDecoder.decode(find, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		System.out.println("机构等级关键词:"+find);
+		paramMap.put("find", find);
+		paramMap.put("orglevel", orglevel);
+		if(find == ""){
+			mers = convertToDisplay(levelOrgService.getAll(paramMap));
+		}else{
+			mers = convertToDisplay(levelOrgService.search(paramMap));
+		}
+		
+		return SUCCESS;
+	}
+	
+	/**
+	 * 
+	 * 测试控件页面
+	 * @return
+	 */
+	public String widgetTest(){
+		return "widgetTest";
+    	
+    }
+	
+	/**
+	 * 将各种条件对象转换成可展示的对象
+	 * @param objList
+	 * @return
+	 */
+	public <T extends DisplayObject> List<DisplayObject> convertToDisplay(List<T> objList){
+		List<DisplayObject> list = new ArrayList<DisplayObject>();
+		for(T t : objList){
+			list.add(t);
+		}
+		return list;
+	}
+
+	public List<DisplayObject> getMers() {
+		return mers;
+	}
+
+	public void setMers(List<DisplayObject> mers) {
+		this.mers = mers;
+	}
+	
+}

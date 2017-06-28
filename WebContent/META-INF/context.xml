@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context>
+<!-- <Resource auth="Container"
+driverClassName="com.vertica.jdbc.Driver"
+maxActive="100"
+maxIdle="40"
+maxWait="12000"
+name="vertica"
+username="dbadmin"
+password="vertica"
+type="javax.sql.DataSource" url="jdbc:vertica://10.75.201.41:5433/dws?characterEncoding=UTF-8" /> -->
+
+</Context>

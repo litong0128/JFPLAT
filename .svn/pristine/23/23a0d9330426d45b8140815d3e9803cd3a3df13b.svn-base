@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="com.unicompay.jf.model.TradeState">
+	<resultMap type="com.unicompay.jf.model.TradeState" id="tradeState">  
+        <result property="id" column="id"/>  
+        <result property="name" column="name" />  
+        <result property="extra" column="extra" />  
+    </resultMap>  
+    <select id="tradeStateFindAll" resultMap="tradeState">  
+        select TRADE_STAT_CODE as id,TRADE_STAT_NAME as name from BDW_DIM.DIM_TRADE_STAT order by TRADE_STAT_CODE
+    </select>  
+    <select id="tradeStateSearch" parameterType="java.util.Map"  resultMap="tradeState">  
+        select TRADE_STAT_CODE as id,TRADE_STAT_NAME as name from BDW_DIM.DIM_TRADE_STAT  where (TRADE_STAT_CODE like '%'||#{find}||'%' or TRADE_STAT_NAME like '%'||#{find}||'%') order by TRADE_STAT_CODE
+    </select>  
+
+</mapper>

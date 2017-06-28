@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="com.unicompay.jf.model.FinaChannel">
+	<resultMap type="com.unicompay.jf.model.FinaChannel" id="finaChannel">  
+        <result property="id" column="id" />  
+        <result property="name" column="name" />  
+        <result property="extra" column="extra" />  
+    </resultMap>  
+    <select id="finaFindAll" resultMap="finaChannel">  
+        select COOP_CODE as id,COOP_NAME as name from bdw_dim.DIM_COOP_COLLATING where FILTER_CODE = #{proflag} order by id
+    </select>  
+    <select id="finaSearch" parameterType="String"  resultMap="finaChannel">  
+        select COOP_CODE as id,COOP_NAME as name from bdw_dim.DIM_COOP_COLLATING where FILTER_CODE = #{proflag} and( COOP_NAME like '%'||#{find}||'%' or COOP_CODE like '%'||#{find}||'%') order by id
+    </select>  
+
+</mapper>

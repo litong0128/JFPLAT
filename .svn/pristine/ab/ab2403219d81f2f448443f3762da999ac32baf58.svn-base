@@ -1,0 +1,144 @@
+package com.unicompay.jf.model;
+
+import java.io.Serializable;
+
+import org.springframework.stereotype.Component;
+
+/**
+ * @author GuoYankui
+ * @version Feb 6, 2015 10:38:18 AM
+ * 
+ * 报表查询条件类
+ */
+@Component
+public class ReportCondis implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4627898878198473573L;
+	private String startDate;//开始时间
+	private String endDate;//结束时间
+	private String busiScenario;//业务场景
+	private String payTool;//支付工具
+	private String finaChannel;//金融通道
+	private String bank;//发卡行（银行）
+	private String reportName;//报表名称
+	private String reportFileName;//报表下载保存名称
+	private String userSource;//用户
+	private String province;//省份
+	private String city;//城市
+	private String installment_num;//分期数 :1期，3期，6期，12期
+	private String channel;//渠道
+	private String accountType;//账户类型：对公，对私
+	private String rechargeType;//充值方式
+	private String merchant;//商户
+	
+	
+	
+	public String getUserSource() {
+		return userSource;
+	}
+	public void setUserSource(String userSource) {
+		this.userSource = userSource;
+	}
+	public String getProvince() {
+		return province;
+	}
+	public void setProvince(String province) {
+		this.province = province;
+	}
+	public String getCity() {
+		return city;
+	}
+	public void setCity(String city) {
+		this.city = city;
+	}
+	public String getStartDate() {
+		return startDate;
+	}
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
+	public String getEndDate() {
+		return endDate;
+	}
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
+	}
+	public String getBusiScenario() {
+		return busiScenario;
+	}
+	public void setBusiScenario(String busiScenario) {
+		this.busiScenario = busiScenario;
+	}
+	public String getPayTool() {
+		return payTool;
+	}
+	public void setPayTool(String payTool) {
+		this.payTool = payTool;
+	}
+	public String getFinaChannel() {
+		return finaChannel;
+	}
+	public void setFinaChannel(String finaChannel) {
+		this.finaChannel = finaChannel;
+	}
+	public String getBank() {
+		return bank;
+	}
+	public void setBank(String bank) {
+		this.bank = bank;
+	}
+	
+	public String getReportName() {
+		return reportName;
+	}
+	public void setReportName(String reportName) {
+		this.reportName = reportName;
+	}
+	public String getReportFileName() {
+		return reportFileName;
+	}
+	public void setReportFileName(String reportFileName) {
+		this.reportFileName = reportFileName;
+	}
+	public String getInstallment_num() {
+		return installment_num;
+	}
+	public void setInstallment_num(String installment_num) {
+		this.installment_num = installment_num;
+	}
+	public String getChannel() {
+		return channel;
+	}
+	public void setChannel(String channel) {
+		this.channel = channel;
+	}
+	
+	public String getAccountType() {
+		return accountType;
+	}
+	public void setAccountType(String accountType) {
+		this.accountType = accountType;
+	}
+	public String getRechargeType() {
+		return rechargeType;
+	}
+	public void setRechargeType(String rechargeType) {
+		this.rechargeType = rechargeType;
+	}
+	public String getMerchant() {
+		return merchant;
+	}
+	public void setMerchant(String merchant) {
+		this.merchant = merchant;
+	}
+	@Override
+	public String toString(){
+		return "["+"startDate="+startDate+",endDate="+endDate+","
+				+ "busiScenario="+busiScenario+",payTool="+payTool+","
+						+ "finaChannel="+finaChannel+",bank="+bank+" +reportName="+reportName+" ]";
+	}
+	
+}
